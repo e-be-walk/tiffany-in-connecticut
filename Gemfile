@@ -35,7 +35,7 @@ gem 'mini_magick', '~> 4.8'
 # gem 'capistrano-rails', group: :development
 
 # gem paperclip for attaching images
-gem 'paperclip', '~> 5.1.0'
+gem 'paperclip', '~> 5.2.0'
 
 # Use faker for seed data
 gem 'faker', '~> 1.6', '>= 1.6.3'

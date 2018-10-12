@@ -12,8 +12,20 @@
 
 ActiveRecord::Schema.define(version: 2018_10_12_004739) do
 
-# Could not dump table "sites" because of following StandardError
-#   Unknown type 'attachment' for column 'image'
+  create_table "sites", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name"
+    t.string "address"
+    t.string "city"
+    t.text "description"
+    t.decimal "lat", precision: 10, scale: 6
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "user_name"
@@ -24,7 +36,18 @@ ActiveRecord::Schema.define(version: 2018_10_12_004739) do
     t.datetime "updated_at", null: false
   end
 
-# Could not dump table "windows" because of following StandardError
-#   Unknown type 'attachment' for column 'image'
+  create_table "windows", force: :cascade do |t|
+    t.integer "site_id"
+    t.string "name"
+    t.string "date"
+    t.text "dedication"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+  end
 
 end
