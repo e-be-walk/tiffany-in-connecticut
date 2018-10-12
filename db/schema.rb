@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2018_10_12_004739) do
     t.string "city"
     t.text "description"
     t.decimal "lat", precision: 10, scale: 6
+    t.decimal "lng", precision: 10, scale: 6
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_file_name"
