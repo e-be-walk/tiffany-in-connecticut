@@ -188,7 +188,117 @@ renderSelectedSiteWindows() {
         src={el.id ? el.url : URL.createObjectURL(el)}
         style={{ alignSelf: 'center' }}
       />
-    )
-  })
+      <div
+      className="remove"
+      onClick={() => this.removeSelectedSiteWindow(el, index)}>
+      <span style={{ top: 2 }} className="glyphicon glyphicon-remove" />
+      </div>
+    </div>
+    <div className="file-name">
+    {el.name}
+    </div>
+    </li>
+  );
+});
+
+return (
+  <ul className="selected-windows">
+  {fileDOMs}
+  </ul>
+);
+}
+
+renderUploadFormProgress() {
+  if (this.state.isSubmittingForm === false) {
+    return null;
+  }
+
+  return (
+    <div className="progress">
+      <div
+        className={
+          'progress-bar progress-bar-info progress-bar-striped' +
+          (this.state.submitFormProgress < 100 ? 'active' : '')
+        }
+        role="progressbar"
+        aria-valuenow={this.state.submitFormProgress}
+        areaValuemin="0"
+        areaValuemax="100"
+        style={{ width: this.state.submitFormProgress + '%' }}>
+        {this.state.submitFormProgress}% Complete
+      </div>
+    </div>
+  );
+}
+
+removeSelectedSiteWindow(siteWindow, index) {
+  let { selectedSiteWindows } = this.state;
+  if (cover.id) {
+    selectedSiteWindows[index]._destroy = true;
+  } else {
+    selectedSiteWindows.splice(index, 1);
+  }
+
+  this.setState({
+    selectedSiteWindows: selectedSiteWindows
+  });
+}
+
+handleSiteWindowsChange() {
+  let selectedFiles = this.siteWindowsField.files;
+  let { selectedSiteWindows } = this.state;
+  for (let i = 0; i < selectedFiles.length; i++) {
+    selectedSiteWindows.push(selectedFiles.item(i));
+  }
+
+  this.setState(
+    {
+      selectedSiteWindows: selectedSiteWindows
+    },
+    () => {
+      this.siteWindowsField.value = null;
+    }
+  );
+}
+
+handleSiteNameChange(e) {
+  let { site } = this.state;
+  site.name = e.target.value;
+  this.setState({ site: site });
+}
+
+handleSiteAddressChange(e) {
+  let { site } = this.state;
+  site.address = e.target.value;
+  this.setState({ site: site });
+}
+
+handleSiteCityChange(e) {
+  let { site } = this.state;
+  site.city = e.target.value;
+  this.setState({ site: site });
+}
+
+handleSiteDescriptionChange(e) {
+  let { site } = this.state;
+  site.description = e.target.value;
+  this.setState({ site: site });
+}
+
+handleSiteLatChange(e) {
+  let { site } = this.state;
+  site.lat = e.target.value;
+  this.setState({ site: site });
+}
+
+handleSiteLngChange(e) {
+  let { site } = this.state;
+  site.lng = e.target.value;
+  this.setState({ site: site });
+}
+//handle rendering errors for fields
+
+handleCancel() {
+  this.props.history.push('/sites');
 }
 }
