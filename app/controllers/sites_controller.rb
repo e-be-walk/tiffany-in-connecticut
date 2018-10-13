@@ -1,15 +1,25 @@
 class SitesController < ApplicationController
 
+  def index
+    @sites = Site.all
+
+    render json: @sites
+  end
+
+  def show
+    render json: @site
+  end
+
   def new
     @site = Site.new
   end
 
   def create
-    @site = Site.create(site_params)
-    if @site.valid?
-      @site.save
+    @site = Site.new(site_params)
+    if @site.save
+      render json: @site, status: :created, location: @site
     else
-      flash[:message] = "Please ensure that your site has a name."
+      render json: @site.errors, status: :unprocessable_entity
     end
   end
 
@@ -21,9 +31,9 @@ class SitesController < ApplicationController
     @site = Site.find(params[:id])
     @site.update(site_params)
     if @site.save
-      redirect_to site_path(@site)
+      render json: @site
     else
-      render :edit
+      render json: @site.errors, status: :unprocessable_entity
     end
   end
 
@@ -37,12 +47,20 @@ class SitesController < ApplicationController
 
   def site_params
     params.require(:site).permit(
+      [
       :user_id,
       :name,
       :address,
       :city,
       :description,
       :lat,
-      :image
+      :image,
+      windows_attributes: %I[
+        id
+        photo
+        _destroy
+      ]
+    ]
     )
+  end
 end

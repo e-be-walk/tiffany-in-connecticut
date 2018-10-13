@@ -233,7 +233,7 @@ renderUploadFormProgress() {
 
 removeSelectedSiteWindow(siteWindow, index) {
   let { selectedSiteWindows } = this.state;
-  if (cover.id) {
+  if (siteWindow.id) {
     selectedSiteWindows[index]._destroy = true;
   } else {
     selectedSiteWindows.splice(index, 1);
