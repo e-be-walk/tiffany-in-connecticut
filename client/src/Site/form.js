@@ -25,7 +25,7 @@ class SiteForm extends Component {
         console.log(response.data);
         this.setState({
           selectedSiteWindows: response.data.cover_photos,
-          book: {
+          site: {
             id: response.data.id,
             name: response.data.name,
             address: response.data.address,
@@ -296,9 +296,156 @@ handleSiteLngChange(e) {
   site.lng = e.target.value;
   this.setState({ site: site });
 }
-//handle rendering errors for fields
+
+renderSiteNameInlineError() {
+  if (this.state.site.errors.name) {
+    return (
+      <div className="inline-error alert alert-danger">
+        {this.state.site.errors.name.join(', ')}
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
+
+renderSiteAddressInlineError() {
+  if (this.state.site.errors.address) {
+    return (
+      <div className="inline-error alert alert-danger">
+        {this.state.site.errors.address.join(', ')}
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
+
+renderSiteCityInlineError() {
+  if (this.state.site.errors.city) {
+    return (
+      <div className="inline-error alert alert-danger">
+        {this.state.site.errors.city.join(', ')}
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
+
+renderSiteDescriptionInlineError() {
+  if (this.state.site.errors.description) {
+    return (
+      <div className="inline-error alert alert-danger">
+        {this.state.site.errors.description.join(', ')}
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
+
+renderSiteLatInlineError() {
+  if (this.state.site.errors.lat) {
+    return (
+      <div className="inline-error alert alert-danger">
+        {this.state.site.errors.lat.join(', ')}
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
+
+renderSiteLngInlineError() {
+  if (this.state.site.errors.lng) {
+    return (
+      <div className="inline-error alert alert-danger">
+        {this.state.site.errors.lng.join(', ')}
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
 
 handleCancel() {
   this.props.history.push('/sites');
 }
+
+buildFormData() {
+  let formData = new FormData();
+  formData.append('site[name]', this.state.site.name);
+  formData.append('site[address]', this.state.site.address);
+  formData.append('site[city]', this.state.site.city);
+  formData.append('site[description]', this.state.site.description);
+  formData.append('site[lat]', this.state.site.lat);
+  formData.append('site[lng]', this.state.site.lng);
+
+  let { selectedSiteWindows } = this.state;
+  for (let i = 0; i < selectedSiteWindows.length; i++) {
+    let file = selectedSiteWindows[i];
+    if (file.id) {
+      if (file._destroy) {
+        formData.append(`site[windows_attributes][${i}][id]`, file.id);
+        formData.append(`site[windows_attributes][${i}][_destroy]`, '1');
+      }
+    } else {
+      formData.append(
+        `site[windows_attributes][${i}][photo]`,
+        file,
+        file.name
+      );
+    }
+  }
+  return formData;
 }
+
+submitForm() {
+  let submitMethod = this.state.site.id ? 'patch' : 'post';
+  let url = this.state.site.id
+    ? `/sites/${this.state.site.id}.json`
+    : '/sites.json';
+
+  axiosClient
+    [submitMethod](url, this.buildFormData(), {
+      onUploadProgress: progressEvent => {
+        let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
+        this.setState({
+          submitFormProgress: percentage
+        });
+      }
+    })
+    .then(response => {
+      this.setState({
+        didFormSubmissionComplete: true
+      });
+      this.props.history.push('/sites');
+    })
+    .catch(error => {
+      let { site } = this.state;
+      site.errors = error.response.data;
+      this.setState({
+        isSubmittingForm: false,
+        submitFormProgress: 0,
+        site: site
+      });
+    });
+}
+
+handleFormSubmit() {
+  let { site } = this.state;
+  site.errors = {};
+  this.setState(
+    {
+      isSubmittingForm: true,
+      site: site
+    },
+    () => {
+      this.submitForm();
+    }
+  );
+}
+}
+
+export default SiteForm;
