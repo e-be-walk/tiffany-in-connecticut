@@ -140,7 +140,7 @@ renderUploadWindowsButton() {
   return (
     <div>
     <input
-    name="covers[]"
+    name="site_windows[]"
     ref={field => (this.siteWindowsField = field)}
     type="file"
     disabled={this.state.isSubmittingForm}
@@ -223,8 +223,8 @@ renderUploadFormProgress() {
         }
         role="progressbar"
         aria-valuenow={this.state.submitFormProgress}
-        areaValuemin="0"
-        areaValuemax="100"
+        areavaluemin="0"
+        areavaluemax="100"
         style={{ width: this.state.submitFormProgress + '%' }}>
         {this.state.submitFormProgress}% Complete
       </div>
@@ -408,7 +408,8 @@ submitForm() {
     ? `/sites/${this.state.site.id}.json`
     : '/sites.json';
 
-  axiosClient[submitMethod](url, this.buildFormData(), {
+  axiosClient
+    [submitMethod](url, this.buildFormData(), {
       onUploadProgress: progressEvent => {
         let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
         this.setState({
@@ -423,6 +424,7 @@ submitForm() {
       this.props.history.push('/sites');
     })
     .catch(error => {
+      console.log(error.response.data);
       let { site } = this.state;
       site.errors = error.response.data;
       this.setState({
@@ -433,9 +435,11 @@ submitForm() {
     });
 }
 
-handleFormSubmit() {
+handleFormSubmit(e) {
+  e.preventDefault();
   let { site } = this.state;
   site.errors = {};
+  console.log(site.errors);
   this.setState(
     {
       isSubmittingForm: true,
