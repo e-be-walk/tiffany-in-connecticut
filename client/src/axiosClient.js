@@ -1,6 +1,6 @@
-let axios = require('axios');
+var axios = require('axios');
 
-let axiosClient = axios.create({
+var axiosClient = axios.create({
   baseURL: 'http://localhost:3000'
 });
 

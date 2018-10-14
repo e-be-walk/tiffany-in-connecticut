@@ -161,7 +161,7 @@ renderUploadWindowsButton() {
     <label
       disabled={this.state.isSubmittingForm}
       className="button"
-      htmlfor="site_windows">
+      htmlFor="site_windows">
       <span className="glyphicon glyphicon-cloud-upload" />
       &nbsp; &nbsp;
       {numberOfSelectedWindows === 0
@@ -185,6 +185,7 @@ renderSelectedSiteWindows() {
       <div className="photo">
         <img
         width={150}
+        alt=''
         src={el.id ? el.url : URL.createObjectURL(el)}
         style={{ alignSelf: 'center' }}
       />
@@ -407,8 +408,7 @@ submitForm() {
     ? `/sites/${this.state.site.id}.json`
     : '/sites.json';
 
-  axiosClient
-    [submitMethod](url, this.buildFormData(), {
+  axiosClient[submitMethod](url, this.buildFormData(), {
       onUploadProgress: progressEvent => {
         let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
         this.setState({
