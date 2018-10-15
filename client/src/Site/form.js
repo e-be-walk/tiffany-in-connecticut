@@ -24,7 +24,7 @@ class SiteForm extends Component {
       axiosClient.get(`/sites/${this.props.match.params.id}`).then(response => {
         console.log(response.data);
         this.setState({
-          selectedSiteWindows: response.data.cover_photos,
+          selectedSiteWindows: response.data.images,
           site: {
             id: response.data.id,
             name: response.data.name,
@@ -393,7 +393,7 @@ buildFormData() {
       }
     } else {
       formData.append(
-        `site[windows_attributes][${i}][photo]`,
+        `site[windows_attributes][${i}][image]`,
         file,
         file.name
       );
@@ -412,6 +412,7 @@ submitForm() {
     [submitMethod](url, this.buildFormData(), {
       onUploadProgress: progressEvent => {
         let percentage = progressEvent.loaded * 100.0 / progressEvent.total;
+        console.log(this)
         this.setState({
           submitFormProgress: percentage
         });
@@ -435,8 +436,8 @@ submitForm() {
     });
 }
 
-handleFormSubmit(e) {
-  e.preventDefault();
+handleFormSubmit() {
+  //e.preventDefault();
   let { site } = this.state;
   site.errors = {};
   console.log(site.errors);

@@ -12,7 +12,6 @@ class LoginForm extends Component {
 		event.preventDefault();
 		this.props.history.push("/")
 		this.props.login(this.state)
-
 	}
 
 	handleChange = (e) => {
@@ -28,6 +27,7 @@ class LoginForm extends Component {
 			<h2>Login</h2>
 			<hr></hr>
 			<form onSubmit={this.handleSubmit}>
+      	Username: <input onChange={this.handleChange} type="text" name="username"/><br></br>
 				Email: <input onChange={this.handleChange} type="text" name="email"/><br></br>
 				Password: <input onChange={this.handleChange} type="password" name="password"/><br></br>
 				<input type="submit" value="Log In" />

@@ -1,4 +1,5 @@
 class SitesController < ApplicationController
+  skip_before_action :verify_authenticity_token, if: :json_request?
 
   def index
     @sites = Site.all
@@ -44,6 +45,10 @@ class SitesController < ApplicationController
   end
 
   private
+
+  def json_request?
+    request.format.json?
+  end 
 
   def site_params
     params.require(:site).permit(
