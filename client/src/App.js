@@ -14,8 +14,8 @@ import { connect } from 'react-redux';
 class App extends Component {
 
   render(){
-    const isAuthenticated = this.props.session.auth.isAuthenticated;
-    const currentUser = this.props.session.current_user;
+    //const isAuthenticated = this.props.session.auth.isAuthenticated;
+    //const currentUser = this.props.session.current_user;
 
     const userRoutes = (
       <div>
@@ -33,11 +33,8 @@ class App extends Component {
     )
 
     return(
-      <Router>
-      <div className="App">
-        { isAuthenticated ? siteRoutes : userRoutes }
-      </div>
-      </Router>
+      <>
+      </>
     );
   }
 }

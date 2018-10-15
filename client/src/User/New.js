@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { login } from './Session';
 
 class NewUserForm extends Component {
 	state = {
@@ -9,8 +10,10 @@ class NewUserForm extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-
+		//this.props.history.push("/")
+		//this.props.login(this.state)
 	}
+
 	handleChange = (e) => {
 		e.preventDefault();
 		this.setState({

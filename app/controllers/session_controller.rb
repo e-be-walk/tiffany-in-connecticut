@@ -3,10 +3,6 @@ class SessionController < ApplicationController
   def index
   end
 
-  def new
-    @user = User.new
-    @users = User.all
-  end
 
 
   def create
@@ -23,7 +19,15 @@ class SessionController < ApplicationController
 
   private
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
-    params.require(:user).permit(:user_name, :email, :password)
+    params.require(:user).permit(
+      :user_name,
+      :password,
+      :email
+    )
   end
 end
