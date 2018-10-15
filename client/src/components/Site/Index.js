@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axiosClient from '../axiosClient';
+import axiosClient from '../../axiosClient';
 
 class SiteIndex extends Component {
   constructor(props) {

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 
-import LoginForm from './User/Login';
-import NewUserForm from './User/New';
-import SiteIndex from './Site/Index';
-import SiteNew from './Site/New';
-import SiteEdit from './Site/Edit';
+import Login from './Components/User/Login';
+import Logout from './Components/User/Logout';
+import SiteIndex from './Components/Site/Index';
+import SiteNew from './Components/Site/New';
+import SiteEdit from './Components/Site/Edit';
 
 import { connect } from 'react-redux';
 
@@ -19,8 +19,8 @@ class App extends Component {
 
     const userRoutes = (
       <div>
-        <Route path="/users/new" component={NewUserForm} />
-        <Route path="/users/login" component={LoginForm} />
+        <Route path="/users/login" component={Login} />
+        <Route path="/users/logout" component={Logout} />
       </div>
     )
 
