@@ -48,7 +48,7 @@ class SitesController < ApplicationController
 
   def json_request?
     request.format.json?
-  end 
+  end
 
   def site_params
     params.require(:site).permit(
@@ -59,6 +59,7 @@ class SitesController < ApplicationController
       :city,
       :description,
       :lat,
+      :lng,
       :image,
       windows_attributes: %I[
         id

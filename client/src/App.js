@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Login from './Components/User/Login';
-import Logout from './Components/User/Logout';
-import SiteIndex from './Components/Site/Index';
-import SiteNew from './Components/Site/New';
-import SiteEdit from './Components/Site/Edit';
+import Login from './components/User/Login';
+import Logout from './components/User/Logout';
+import SiteIndex from './components/Site/Index';
+import SiteNew from './components/Site/New';
+import SiteEdit from './components/Site/Edit';
 
 import { connect } from 'react-redux';
 
@@ -14,8 +14,8 @@ import { connect } from 'react-redux';
 class App extends Component {
 
   render(){
-    //const isAuthenticated = this.props.session.auth.isAuthenticated;
-    //const currentUser = this.props.session.current_user;
+    const isAuthenticated = this.props.session.auth.isAuthenticated;
+    const currentUser = this.props.session.current_user;
 
     const userRoutes = (
       <div>
@@ -33,8 +33,14 @@ class App extends Component {
     )
 
     return(
-      <>
-      </>
+      <Router>
+      <div className="App">
+
+        { isAuthenticated ? userRoutes : siteRoutes }
+
+      </div>
+      </Router>
+
     );
   }
 }
