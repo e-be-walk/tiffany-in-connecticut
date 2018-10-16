@@ -14,21 +14,22 @@ import { connect } from 'react-redux';
 class App extends Component {
 
   render(){
-    const isAuthenticated = this.props.session.auth.isAuthenticated;
+    //const isAuthenticated = this.props.session.auth.isAuthenticated;
     const currentUser = this.props.session.current_user;
 
     const userRoutes = (
       <div>
         <Route path="/users/login" component={Login} />
         <Route path="/users/logout" component={Logout} />
-      </div>
-    )
-
-    const siteRoutes = (
-      <div>
         <Route path="/sites/:id/edit" component={SiteEdit} />
         <Route path="/sites/new" component={SiteNew} />
         <Route path="/sites/" component={SiteIndex} />
+      </div>
+    )
+
+    const visitorRoutes = (
+      <div>
+        <Route path="/users/login" component={Login} />
       </div>
     )
 
@@ -36,7 +37,7 @@ class App extends Component {
       <Router>
       <div className="App">
 
-        { isAuthenticated ? userRoutes : siteRoutes }
+       {userRoutes}
 
       </div>
       </Router>

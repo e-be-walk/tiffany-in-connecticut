@@ -6,7 +6,7 @@ const headers = {
 export const createSession = (email, password) => {
     return (dispatch) => {
         dispatch({type: 'LOADING PAGE'});
-        return fetch('/api/login', {
+        return fetch('/login', {
             method: "POST",
             body: JSON.stringify({email: email, password: password}),
             headers

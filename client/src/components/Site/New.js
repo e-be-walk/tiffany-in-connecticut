@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SiteForm from './Form';
+//import { connect } from 'react-redux';
 
 class SiteNew extends Component {
   render() {
