@@ -6,16 +6,17 @@ const headers = {
 export const createSession = (email, password) => {
     return (dispatch) => {
         dispatch({type: 'LOADING PAGE'});
-        return fetch('/login', {
+        return fetch('/api/login', {
             method: "POST",
             body: JSON.stringify({email: email, password: password}),
             headers
         })
             .then(response => response.json())
-            //.then(user => console.log(user))
+            .then(user => console.log(user))
             .then(user => {
                 dispatch({type: 'CREATE_SESSION', payload: user})
             })
+            .then(user => console.log("session created"))
     }
 }
 

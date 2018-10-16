@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { createSession } from '../../actions/SessionActions';
-//import { currentUser } from '../../App'
 
 class Login extends Component {
 
     state = {
-				user_name: '',
         email: '',
         password: '',
+        loggedIn: false,
+        error: false
     }
 
     handleChange = event => {
@@ -20,23 +20,10 @@ class Login extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.createSession(this.state.user_name, this.state.email, this.state.password)
-        //.then(this.checkForErrors.bind(this));
+        this.props.createSession(this.state.email, this.state.password)
     }
 
-    //checkForErrors = () => {
-    //    this.setState({
-    //        text: '',
-    //        error: false
-    //    });
-    //    if (this.props.errors.length > 0) {
-    //        this.setState({
-    //            error: true
-    //        })
-    //    } else {
-    //        this.props.history.push('/')
-    //    }
-    //}
+
 
     render() {
         const isLoggedIn = this.props.currentUser;
@@ -50,10 +37,6 @@ class Login extends Component {
                     <div className='login-form'>
                         <h1>Login to Your Account</h1>
                         <form onSubmit={this.handleSubmit}>
-														Username:
-														<br></br>
-														<input type="text" name="user_name" value={this.state.user_name} onChange={this.handleChange}/><br></br>
-														<br></br>
                             Email
                             <br></br>
                             <input type="text" name="email" value={this.state.email} onChange={this.handleChange}/><br></br>
@@ -77,7 +60,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    createSession: (user_name, email, password) => dispatch(createSession(user_name, email, password))
+    createSession: (email, password) => dispatch(createSession(email, password))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

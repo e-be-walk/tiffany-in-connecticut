@@ -1,28 +1,25 @@
 class SessionsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+    def new
+        # if logged_in?
+        #   redirect_to user_path(current_user)
+        # end
+    end
 
-  def new
-  end
+    def create
+        @user = User.find_by(email: params[:email])
+        if @user && @user.authenticate(params[:password])
+            session[:user_id] = @user.id
+            render json: @user.as_json(only: [:id, :name, :email])
+        else
+            render json: @user.errors, status: :unprocessable_entity
+        end
 
-  def create
-    @user = User.find_by(email: user_params[:email])
-    #if @user && @user.authenticate(user_params[:password])
-      render status: 200, json: @user.to_json
-    #end
-  end
+        # session[:user_id] = @user.id
+        # render 'users/show'
+    end
 
-  def destroy
-    session.delete :user_id
-  end
-
-  private
-
-  def user_params
-    params.require(:user).permit(
-      :user_name,
-      :password,
-      :email
-    )
-  end
+    def destroy
+        session.delete :user_id
+    end
 
 end
