@@ -99,7 +99,7 @@ class SiteIndex extends Component {
   handleRemove(siteId) {
     let sites = this.state.sites;
     sites = sites.filter(site => {
-      return site.id !== siteId;
+      return site.id !== site.id;
     });
     this.setState({ sites: sites });
     axiosClient.delete(`sites/${siteId}`);

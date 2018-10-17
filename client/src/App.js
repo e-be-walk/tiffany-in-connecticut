@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route } from 'react-router-dom';
 
+import Navbar from './components/Navbar';
 import Login from './components/User/Login';
 import Logout from './components/User/Logout';
 import SiteIndex from './components/Site/Index';
@@ -14,7 +15,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Tiffany in Connecticut</h1>
-        
+          <Navbar />
         </header>
         <div className="App-body">
           <Route path="/sites/:id/edit" component={SiteEdit} />

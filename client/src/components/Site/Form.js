@@ -20,11 +20,12 @@ class SiteForm extends Component {
   };
 
   componentWillMount() {
+    debugger
     if (this.props.match.params.id) {
       axiosClient.get(`/sites/${this.props.match.params.id}`).then(response => {
         console.log(response.data);
         this.setState({
-          selectedSiteWindows: response.data.images,
+          //selectedSiteWindows: response.data.image,
           site: {
             id: response.data.id,
             name: response.data.name,

@@ -1,13 +1,13 @@
 class SitesController < ApplicationController
-  skip_before_action :verify_authenticity_token, if: :json_request?
+  #skip_before_action :verify_authenticity_token, if: :json_request?
 
   def index
     @sites = Site.all
-
     render json: @sites
   end
 
   def show
+    @site = Site.find(params[:id])
     render json: @site
   end
 
@@ -41,7 +41,6 @@ class SitesController < ApplicationController
   def destroy
     @site = Site.find(params[:id])
     @site.destroy
-    redirect_to user_path(current_user)
   end
 
   private
@@ -53,7 +52,7 @@ class SitesController < ApplicationController
   def site_params
     params.require(:site).permit(
       [
-      :user_id,
+      #:user_id,
       :name,
       :address,
       :city,

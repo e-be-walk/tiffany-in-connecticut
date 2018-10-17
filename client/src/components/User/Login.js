@@ -21,8 +21,22 @@ class Login extends Component {
     handleSubmit = event => {
         event.preventDefault();
         this.props.createSession(this.state.email, this.state.password)
-    }
+        .then(this.checkForErrors.bind(this));
+      }
 
+      checkForErrors = () => {
+        this.setState({
+       text: '',
+       error: false
+   });
+   if (this.props.errors.length > 0) {
+       this.setState({
+           error: true
+       })
+   } else {
+       this.props.history.push('/')
+   }
+}
 
 
     render() {
@@ -54,9 +68,9 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    //errors: state.sessions.errors,
-    //currentUser: state.sessions.currentUser
+const mapStateToProps = (state) => ({
+    error: state.sessions.error,
+    currentUser: state.sessions.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,5 +1,5 @@
 class Site < ApplicationRecord
-  belongs_to :user
+  #belongs_to :user
   has_many :windows, dependent: :destroy
   accepts_nested_attributes_for :windows, allow_destroy: true
 
@@ -11,19 +11,17 @@ class Site < ApplicationRecord
   def as_json(_opts = {})
     {
       id: id,
-      user_id: user_id,
+      #user_id: user_id,
       name: name,
       address: address,
       city: city,
       description: description,
       errors: errors,
-      windows: windows.map do |x|
-        {
-          url: x.photo.url.absolute_url,
-          name: x.photo_file_name,
-          id: x.id
-        }
-      end
-    }
+      #windows: windows.map do |x|
+      #  {
+      #    url: x.photo.url.absolute_url,
+      #    name: x.photo_file_name,
+      #    id: x.id
+       }
   end
 end

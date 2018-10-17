@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
         @user = User.find_by(email: params[:email])
         if @user && @user.authenticate(params[:password])
             session[:user_id] = @user.id
-            render json: @user.as_json(only: [:id, :name, :email])
+            render json: @user.as_json(only: [:id, :user_name, :email])
         else
             render json: @user.errors, status: :unprocessable_entity
         end
